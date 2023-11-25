@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" media="all" href="style.css" />
+  <style>
+    /* Estilo para el fondo de la página */
+    body {
+      background-color: #FFFFE0; /* Amarillo claro */
+    }
+
+    /* Estilo para centrar el título */
+    h1 {
+      text-align: center;
+      font-family: 'Arial Round', sans-serif; /* Cambia 'NOMBRE DE TU FUENTE' por el nombre de la fuente que descargaste o enlazaste */
+    }
+
+    /* Estilo para centrar los botones e imagen */
+    .button-container {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Estilo para los botones con separación */
+    .custom-button {
+      margin-top: 10px; /* Espacio superior para separación */
+    }
+
+    /* Estilo para el label de valor retornado */
+    #responseValue {
+      font-family: 'Arial Round', sans-serif; /* Cambia 'NOMBRE DE TU FUENTE' por la fuente que prefieras */
+      font-size: 24px; /* Tamaño del texto del label */
+      margin-top: 20px; /* Espacio superior para separación del label */
+    }
+
+  </style>
+
+  <script>
+    var accessToken = "32c87f834fe3f4b89fab39185a62f236d245d7b0";
+    var deviceID = "380035000c47343438323536";
+    var url = "https://api.particle.io/v1/devices/" + deviceID + "/btn";
+	
+	
+	function Alimentar(){
+		$.post(url, { params: "btn", access_token: accessToken })
+			.done(function(response){
+			
+				console.log("respuesta de btn", response.return_value);
+				// Actualizar el valor en el label
+          $("#responseValue").text("Encendido -> Valor retornado: " + response.return_value);
+          // Cambiar la imagen a foco encendido
+          $("#focoImagen").attr("src", "encendido.jpeg");
+			
+			})
+			.fail(function(error){
+			
+				console.log("respuesta de btn", response.return_value);
+			
+			});
+	}
+  </script>
+</head>
+
+<body>
+
+  <div class="btn-bg Pokemon">
+    <div class="btn-info">Alimentador de pez</div>
+    <img id="focoImagen" src="apagado.gif" alt="Foco apagado" style="max-width: 200px; height: auto;">
+    <div class="btn-mention"><span>get Up, get Out, and Explore!</span></div>
+    <div class="btn-group">
+      <div class="btn ball">
+        <button onclick="Alimentar()">
+          <div class="pokemon-ball"></div><a>Alimentar ahora<span data-letters="Go!"></span><span data-letters="Go!"></span></a>
+        </button>
+        <br><br>
+        <button onclick="Alimentar()">
+          <div class="pokemon-ball"></div><a>Programar alimentación<span data-letters="Go!"></span><span data-letters="Go!"></span></a>
+        </button>
+      </div>
+    </div>
+    </div>
+  </div>  
+</body>
+</html>
